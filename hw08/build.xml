@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="run" name="Car">
+
+	<property environment = "env"/>
+
+	<path id = "test.classpath">
+		<pathelement path = "${env.JUNIT}"/>
+		<pathelement path = "${env.HAMCREST_CORE}"/>
+
+	</path>
+
+	<path id = "test.classpath1">
+		<pathelement path = "${env.JUNIT}"/>
+		<pathelement path = "${env.HAMCREST_CORE}"/>
+		<pathelement path="./bin"/>
+		<pathelement path="test/bin"/>
+	</path>
+
+
+	<target name="run" depends="compile">
+		<java classname="hw08.Runner">
+			<classpath path="bin" />
+		</java>
+	</target>
+
+	<target name="junit" depends="compile">
+		<junit printsummary="yes" showoutput="true" dir="test/bin">
+			<classpath refid="test.classpath1"/>
+			<test name="edu.umb.cs.cs680.hw06.CarTest">
+				<formatter type="plain" usefile="false"/>
+			</test>
+		</junit>
+	</target>
+
+	<target name="compile">
+		<delete dir="bin"/>
+		<mkdir dir ="bin"/>
+		<javac srcdir="./src" destdir="bin" >
+
+
+
+		</javac>
+		<delete dir="test/bin"/>
+		<mkdir dir ="test/bin"/>
+		<javac srcdir="./test/src" destdir="test/bin" >
+
+			<classpath refid="test.classpath1"/>
+
+		</javac>
+
+	</target>
+
+</project>
